@@ -15,7 +15,7 @@
 
 """Creates config_setting that allows selecting based on 'compiler' value."""
 
-def create_llvm_config(name, visibility):
+def create_compiler_config(name, value, visibility):
     # The "do_not_use_tools_cpp_compiler_present" attribute exists to
     # distinguish between older versions of Bazel that do not support
     # "@bazel_tools//tools/cpp:compiler" flag_value, and newer ones that do.
@@ -26,13 +26,13 @@ def create_llvm_config(name, visibility):
         native.config_setting(
             name = name,
             flag_values = {
-                "@bazel_tools//tools/cpp:compiler": "llvm",
+                "@bazel_tools//tools/cpp:compiler": value,
             },
             visibility = visibility,
         )
     else:
         native.config_setting(
             name = name,
-            values = {"compiler": "llvm"},
+            values = {"compiler": value},
             visibility = visibility,
         )

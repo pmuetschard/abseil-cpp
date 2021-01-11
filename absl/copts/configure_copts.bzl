@@ -22,7 +22,7 @@ load(
 )
 
 ABSL_DEFAULT_COPTS = select({
-    "//absl:windows": ABSL_MSVC_FLAGS,
+    "//absl:msvc_compiler": ABSL_MSVC_FLAGS,
     "//absl:llvm_compiler": ABSL_LLVM_FLAGS,
     "//conditions:default": ABSL_GCC_FLAGS,
 })
@@ -30,13 +30,13 @@ ABSL_DEFAULT_COPTS = select({
 # in absence of modules (--compiler=gcc or -c opt), cc_tests leak their copts
 # to their (included header) dependencies and fail to build outside absl
 ABSL_TEST_COPTS = ABSL_DEFAULT_COPTS + select({
-    "//absl:windows": ABSL_MSVC_TEST_FLAGS,
+    "//absl:msvc_compiler": ABSL_MSVC_TEST_FLAGS,
     "//absl:llvm_compiler": ABSL_LLVM_TEST_FLAGS,
     "//conditions:default": ABSL_GCC_TEST_FLAGS,
 })
 
 ABSL_DEFAULT_LINKOPTS = select({
-    "//absl:windows": ABSL_MSVC_LINKOPTS,
+    "//absl:msvc_compiler": ABSL_MSVC_LINKOPTS,
     "//conditions:default": [],
 })
 
